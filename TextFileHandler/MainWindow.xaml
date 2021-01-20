@@ -1,0 +1,66 @@
+﻿<Window x:Class="TextFileHandler.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TextFileHandler"
+        mc:Ignorable="d"
+        Title="Text File Processor" FontSize="9pt" MinWidth="400" ResizeMode="CanMinimize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" >
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+        <Style TargetType="{x:Type CheckBox}">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" Click="OpenFileToProcess_Click">
+            Выбрать файл для _обработки
+        </Button>
+        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=FileToProcess, Mode=OneWay}" IsReadOnly="True"></TextBox>
+        <Button Grid.Row="1" Grid.Column="0" Click="OpenFileToSave_Click">
+                Сохранить _результат обработки
+        </Button>
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=FileToSave, Mode=OneWay}" IsReadOnly="True"></TextBox>
+        <CheckBox Grid.Row="2" Grid.ColumnSpan="2" IsChecked="{Binding Path=RemovePunctuation}">
+            Удалять _знаки препинания
+        </CheckBox>
+        <CheckBox Grid.Row="3" Grid.ColumnSpan="2" IsChecked="{Binding Path=RemoveEmptyLines}">
+            Удалять _пустые строки
+        </CheckBox>
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="3">
+        <Label Target="{Binding ElementName=minSym}">Исключить _слова меньше, чем (количество символов)</Label>
+        <TextBox Width="150" Text="{Binding Path=MinSimbolsCount}"
+                 Name="minSym"/>
+        </StackPanel>
+        <Button Grid.Row="6" Grid.ColumnSpan="3" Margin="5,10,5,5" HorizontalAlignment="Center" Click="ProcessFile_Click" IsDefault="True"
+                IsEnabled="{Binding Path=CanProcess}">
+            Обработать файл
+        </Button>
+    </Grid>
+</Window>
